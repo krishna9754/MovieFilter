@@ -27,7 +27,7 @@ To run this project locally, follow these steps:
 git clone <repository-url>
 
 2.Navigate to the project directory:
-cd movie-website
+cd moviefilter
 
 3.Install dependencies:
 npm install
@@ -38,14 +38,14 @@ npm start
 
 ### `Features`
 
-`*` Browse a curated selection of movies.
-`*` Filter movies based on various criteria.
-`*` Responsive design for different screen sizes.
-`*` Integrates Tailwind and Bootstrap for styling.
+1. Browse a curated selection of movies.
+2. Filter movies based on various criteria.
+3. Responsive design for different screen sizes.
+4. Integrates Tailwind and Bootstrap for styling.
 
 ### `Technologies Used`
 
-`*` React JS
-`*` CSS
-`*` Tailwind CSS
-`*` Bootstrap
+1. React JS
+2. CSS
+3. Tailwind CSS
+4. Bootstrap
