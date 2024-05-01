@@ -1,31 +1,36 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useContext } from 'react'
+
+import React, { useContext, useState } from 'react'
+import Data from './movieList.json'
 import { counterContext } from '../context/Context';
 
 
-export default function FilterListing() {
+export default function FilterLanguage({ menuLanguageItems, setItem, filterLanguageItem }) {
     const value = useContext(counterContext)
+    const dublicateLanguageData = removeDuplicatesLanguage(value.menuLanguageItems);
+    const [selected, setSelected] = useState()
+
+    const handleLanguageClick = (index, language) => {
+        if (index === selected) {
+            setSelected(null);
+            value.filterLanguageItem(null);
+        } else {
+            setSelected(index);
+            value.filterLanguageItem(language);
+        }
+        value.setVisible(!value.isVisible)
+    };
+
     return (
-        <div className="App bg-black" style={{ overflow: "hidden" }}>
-            <div style={{ justifyContent: "center" }}>
-                <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-2xl-5 bg-black">
+        <div>
+            <div style={{display: "flex", justifyContent: "center", margin: "0px 50px" }}>
+                <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 bg-black pb-2 mb-3 border-b-2">
                     {
-                        value.item.map((movie, index) => (
-                            <div key={index} style={{ display: "flex", justifyContent: "center", paddingTop: "10px" }}>
-                                <div className="bg-black w-fit" style={{ width: "18em", padding: "1em", borderRadius: "10px", border: "1px solid white", height: "35em", boxShadow: "0 0 15px white" }}>
-                                    {
-                                        movie.moviemainphotos && movie.moviemainphotos.length ? (
-                                            <img className="card-img-top" style={{ borderRadius: "15px" }} src={movie.moviemainphotos} alt="Card image cap" />
-                                        ) : null
-                                    }
-                                    <div className="h-56" style={{ paddingTop: '1.2em', height: "10em" }}>
-                                        <p className="card-text text-white" style={{ fontWeight: "lighter" }}>{movie.moviegenres[0]}</p>
-                                        <p className="card-title text-white " style={{ fontWeight: "lighter" }}><span style={{ fontWeight: "bold", textDecoration: "underLine" }}>Title</span> :-{movie.movietitle}</p>
-                                        <p className="card-text text-white" style={{ fontWeight: "lighter" }}><span style={{ fontWeight: "bold", textDecoration: "underLine" }}>Language</span> :- {movie.movielanguages[0]}</p>
-                                        <p className="card-text text-white" style={{ fontWeight: "lighter" }}><span style={{ fontWeight: "bold", textDecoration: "underLine" }}>Country</span> :- {movie.moviecountries[0]}</p>
-                                    </div>
-                                </div>
-                            </div>
+                        dublicateLanguageData.map((languageVal, index) => (
+
+                            <form >
+                                <input type='checkbox' checked={value.isVisible} onClick={() => handleLanguageClick(index, languageVal)} />
+                                <label className='text-white'> {languageVal}</label>
+                            </form>
                         ))
                     }
                 </div>
@@ -33,3 +38,18 @@ export default function FilterListing() {
         </div>
     )
 }
+
+
+const removeDuplicatesLanguage = (menuLanguageItems) => {
+
+    const uniqueLanguage = new Set();
+
+    menuLanguageItems.forEach((movie) => {
+        movie.forEach((lang) => {
+            uniqueLanguage.add(lang);
+        });
+    });
+
+    const uniqueLanguageArray = [...uniqueLanguage];
+    return uniqueLanguageArray;
+};
