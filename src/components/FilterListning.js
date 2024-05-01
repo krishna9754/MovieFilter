@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, {useContext} from 'react'
-import { counterContext } from '../context/Context'
+import React, { useContext } from 'react'
+import { counterContext } from '../context/Context';
 
-export default function FilterListning() {
+
+export default function FilterListing() {
     const value = useContext(counterContext)
-
     return (
         <div className="App bg-black" style={{ overflow: "hidden" }}>
             <div style={{ justifyContent: "center" }}>
