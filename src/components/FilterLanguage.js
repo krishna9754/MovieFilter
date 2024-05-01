@@ -1,64 +1,35 @@
-import React, { useContext, useState } from 'react'
-import Data from './movieList.json'
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import React, { useContext } from 'react'
 import { counterContext } from '../context/Context';
 
 
-export default function FilterLanguage() {
+export default function FilterListing() {
     const value = useContext(counterContext)
-    const dublicateLanguageData = removeDuplicatesLanguage(value.menuLanguageItems);
-    const [selected, setSelected] = useState()
-
-    const handleLanguageClick = (index, language) => {
-        if (index === selected) {
-            setSelected(null);
-            value.filterLanguageItem();
-        } else {
-            setSelected(index);
-            value.filterLanguageItem(language);
-        }
-    };
-
     return (
-        <div>
-            {
-                dublicateLanguageData.map((valLanguage, index) => (
-                    <button key={index} onClick={() => handleLanguageClick(index, valLanguage)}
-                        style={{
-                            border: "1px solid white",
-                            borderRadius: "10px",
-                            margin: "6px",
-                            padding: "3px 15px 3px 15px",
-                            backgroundColor: selected === index ? "grey" : "black",
-                            color: selected === index ? "black" : "wheat"
-                        }
-                        }>{valLanguage}</button>
-                ))
-            }
-            <button onClick={() => value.setItem(Data)}
-                style={{
-                    border: "1px solid white",
-                    borderRadius: "10px",
-                    margin: "6px",
-                    padding: "3px 15px 3px 15px",
-                    backgroundColor: "black",
-                    color: "wheat"
-                }
-                }>All</button>
+        <div className="App bg-black" style={{ overflow: "hidden" }}>
+            <div style={{ justifyContent: "center" }}>
+                <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-2xl-5 bg-black">
+                    {
+                        value.item.map((movie, index) => (
+                            <div key={index} style={{ display: "flex", justifyContent: "center", paddingTop: "10px" }}>
+                                <div className="bg-black w-fit" style={{ width: "18em", padding: "1em", borderRadius: "10px", border: "1px solid white", height: "35em", boxShadow: "0 0 15px white" }}>
+                                    {
+                                        movie.moviemainphotos && movie.moviemainphotos.length ? (
+                                            <img className="card-img-top" style={{ borderRadius: "15px" }} src={movie.moviemainphotos} alt="Card image cap" />
+                                        ) : null
+                                    }
+                                    <div className="h-56" style={{ paddingTop: '1.2em', height: "10em" }}>
+                                        <p className="card-text text-white" style={{ fontWeight: "lighter" }}>{movie.moviegenres[0]}</p>
+                                        <p className="card-title text-white " style={{ fontWeight: "lighter" }}><span style={{ fontWeight: "bold", textDecoration: "underLine" }}>Title</span> :-{movie.movietitle}</p>
+                                        <p className="card-text text-white" style={{ fontWeight: "lighter" }}><span style={{ fontWeight: "bold", textDecoration: "underLine" }}>Language</span> :- {movie.movielanguages[0]}</p>
+                                        <p className="card-text text-white" style={{ fontWeight: "lighter" }}><span style={{ fontWeight: "bold", textDecoration: "underLine" }}>Country</span> :- {movie.moviecountries[0]}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
     )
 }
-
-
-const removeDuplicatesLanguage = (menuLanguageItems) => {
-
-    const uniqueLanguage = new Set();
-
-    menuLanguageItems.forEach((movie) => {
-        movie.forEach((lang) => {
-            uniqueLanguage.add(lang);
-        });
-    });
-
-    const uniqueLanguageArray = [...uniqueLanguage];
-    return uniqueLanguageArray;
-};
