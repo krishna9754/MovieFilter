@@ -27,7 +27,7 @@ export default function FilterGenre() {
                         dublicateGenreData.map((genreVal, index) => (
 
                             <form >
-                                <input type='checkbox' checked={value.isVisible === true ? selected.length !== value.isVisible : value.setItem(value.Data)} onClick={() => handleGenreClick(index, genreVal)} />
+                                <input type='checkbox' onClick={() => handleGenreClick(index, genreVal)} />
                                 <label className='text-white'> {genreVal}</label>
                             </form>
                         ))
